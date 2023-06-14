@@ -100,3 +100,49 @@ ok: [ubuntu] => {
 ```
 
 12. push main
+
+## Необязательные задания
+
+1. Выполнил дешифровку 
+
+```sh
+stade@stade-A320M-H:~/work/ansible/playbook/group_vars$ ansible-vault decrypt deb/examp.yml 
+Vault password: 
+Decryption successful
+stade@stade-A320M-H:~/work/ansible/playbook/group_vars$ ansible-vault decrypt el/examp.yml 
+Vault password: 
+Decryption successful
+```
+
+2. Зашифровал значение
+
+```yml
+stade@stade-A320M-H:~/work/ansible$ ansible-vault encrypt_string 
+New Vault password: 
+Confirm New Vault password: 
+Reading plaintext input from stdin. (ctrl-d to end input, twice if your content does not already have a newline)
+PaSSw0rd        
+Encryption successful
+!vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          37623063643230643039346237323565366336633930356366656164346236633065323139356365
+          3133343263303266626238316434663665613533666662330a666235376334663836333161376566
+          62613464626333653061316538343739653838366138616130356237666432376530656133366432
+          3538323666353433650a313230393665353231383464393839393331393332663362623938663730
+          3439
+```
+4. ansible-playbook site.yml --ask-vault-pass -i inventory/prod.yml
+
+```yml
+TASK [Print fact] ***********************************************************************************************************************************************************************************
+ok: [centos7] => {
+    "msg": "el default fact"
+}
+ok: [ubuntu] => {
+    "msg": "deb default fact"
+}
+ok: [localhost] => {
+    "msg": "PaSSw0rd\n"
+}
+```
+5. script.sh прикладываю в репу
